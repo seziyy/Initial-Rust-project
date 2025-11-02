@@ -1,8 +1,6 @@
 use sqlx::{Pool, Error};
 use tracing::info;
 
-/// SQL Server veritabanı bağlantı pool'u oluşturur
-/// Connection string DATABASE_URL environment variable'ından okunur
 pub async fn create_pool() -> Result<Pool<sqlx::Mssql>, Error> {
     let database_url = std::env::var("DATABASE_URL")
         .expect("DATABASE_URL environment variable must be set");
@@ -16,7 +14,6 @@ pub async fn create_pool() -> Result<Pool<sqlx::Mssql>, Error> {
     Ok(pool)
 }
 
-/// Connection string'deki şifreyi gizler (loglama için)
 fn mask_password(url: &str) -> String {
     if let Some(at_pos) = url.find('@') {
         if let Some(colon_pos) = url[..at_pos].rfind(':') {
@@ -33,7 +30,6 @@ fn mask_password(url: &str) -> String {
     url.to_string()
 }
 
-/// Veritabanı bağlantısını test eder
 pub async fn test_connection(pool: &Pool<sqlx::Mssql>) -> Result<(), Error> {
     sqlx::query("SELECT 1")
         .execute(pool)
