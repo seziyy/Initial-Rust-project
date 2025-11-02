@@ -1,0 +1,15 @@
+[package]
+name = "axum-api-2"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = "0.6"
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+tiberius = { version = "0.12", features = ["tds73", "native-tls"] }
+serde_json = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["fmt", "env-filter"] }
+tokio-util = { version = "0.7", features = ["compat"] }
+ 
