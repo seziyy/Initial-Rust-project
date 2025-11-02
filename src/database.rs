@@ -5,11 +5,11 @@ pub async fn create_pool() -> Result<Pool<sqlx::Mssql>, Error> {
     let database_url = std::env::var("DATABASE_URL")
         .expect("DATABASE_URL environment variable must be set");
 
-    info!("SQL Server bağlantısı kuruluyor: {}", mask_password(&database_url));
+    info!("Connecting to SQL Server: {}", mask_password(&database_url));
     
     let pool = Pool::<sqlx::Mssql>::connect(&database_url).await?;
     
-    info!("SQL Server bağlantısı başarıyla kuruldu");
+    info!("SQL Server connected successfully");
     
     Ok(pool)
 }
@@ -34,7 +34,7 @@ pub async fn test_connection(pool: &Pool<sqlx::Mssql>) -> Result<(), Error> {
     sqlx::query("SELECT 1")
         .execute(pool)
         .await?;
-    info!("Veritabanı bağlantısı test edildi ve başarılı");
+    info!("Test query executed successfully");
     Ok(())
 }
 
